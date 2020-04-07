@@ -38,7 +38,7 @@ abstract class EMongoMigration extends CComponent
 		echo "    > creating collection $name ...";
 		$time = microtime(true);
 		
-		if(version_compare(phpversion('mongo'), '1.4.0', '<')){
+		if(version_compare(phpversion('mongodb'), '1.4.0', '<')){
 			$options ['capped'] = isset($options['capped']) ? $options['capped'] : false;
 			$options ['size'] = isset($options['size']) ? $options['size'] : 0;
 			$options ['max'] = isset($options['max']) ? $options['max'] : 0;

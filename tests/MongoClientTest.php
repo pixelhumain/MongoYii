@@ -12,7 +12,7 @@ class MongoClientTest extends CTestCase
 		$mongo = Yii::app()->mongodb;
 		$this->assertInstanceOf('EMongoClient', $mongo);
 
-		if(version_compare(phpversion('mongo'), '1.3.0', '<')){
+		if(version_compare(phpversion('mongodb'), '1.3.0', '<')){
 			$this->assertInstanceOf('Mongo', $mongo->getConnection());
 		}else{
 			$this->assertInstanceOf('MongoClient', $mongo->getConnection());
@@ -48,7 +48,7 @@ class MongoClientTest extends CTestCase
 		$mongo = Yii::app()->mongodb;
 		$w = $mongo->getDefaultWriteConcern();
 
-		if(version_compare(phpversion('mongo'), '1.3.0', '<')){
+		if(version_compare(phpversion('mongodb'), '1.3.0', '<')){
 			$this->assertTrue(isset($w['safe']));
 		}else{
 			$this->assertTrue(isset($w['w'], $w['j']));
@@ -60,7 +60,7 @@ class MongoClientTest extends CTestCase
 		$w = null;
 		$w = $mongo->getDefaultWriteConcern();
 
-		if(version_compare(phpversion('mongo'), '1.3.0', '<')){
+		if(version_compare(phpversion('mongodb'), '1.3.0', '<')){
 			$this->assertTrue($w['safe'] === true);
 		}else{
 			$this->assertTrue($w['w'] == 1 && $w['j'] === true);

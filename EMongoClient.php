@@ -191,7 +191,7 @@ class EMongoClient extends CApplicationComponent
 	 */
 	public function connect()
 	{
-		if(!extension_loaded('mongo')){
+		if(!extension_loaded('mongodb')){
 			throw new EMongoException(
 				yii::t(
 					'yii', 
@@ -203,7 +203,7 @@ class EMongoClient extends CApplicationComponent
 		// We don't need to throw useless exceptions here, the MongoDB PHP Driver has its own checks and error reporting
 		// Yii will easily and effortlessly display the errors from the PHP driver, we should only catch its exceptions if
 		// we wanna add our own custom messages on top which we don't, the errors are quite self explanatory
-		if(version_compare(phpversion('mongo'), '1.3.0', '<')){
+		if(version_compare(phpversion('mongodb'), '1.3.0', '<')){
 			$this->_mongo = new Mongo($this->server, $this->options);
 			$this->_mongo->connect();
 			
@@ -297,7 +297,7 @@ class EMongoClient extends CApplicationComponent
 	 */
 	public function aggregate($collection, $pipelines)
 	{
-		if(version_compare(phpversion('mongo'), '1.3.0', '<')){
+		if(version_compare(phpversion('mongodb'), '1.3.0', '<')){
 			return $this->getDB()->command(array('aggregate' => $collection, 'pipeline' => $pipelines));
 		}
 		return $this->getDB()->$collection->aggregate($pipelines);
@@ -399,7 +399,7 @@ class EMongoClient extends CApplicationComponent
 	 */
 	public function getDefaultWriteConcern()
 	{
-		if(!version_compare(phpversion('mongo'), '1.3.0', '<')){
+		if(!version_compare(phpversion('mongodb'), '1.3.0', '<')){
 			return array('w' => $this->w, 'j' => $this->j);
 		}elseif($this->w == 1){
 			return array('safe' => true);
