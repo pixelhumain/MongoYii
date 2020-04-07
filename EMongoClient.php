@@ -300,7 +300,7 @@ class EMongoClient extends CApplicationComponent
 		if(version_compare(phpversion('mongodb'), '1.3.0', '<')){
 			return $this->getDB()->command(array('aggregate' => $collection, 'pipeline' => $pipelines));
 		}
-		return $this->getDB()->$collection->aggregate($pipelines);
+		return $this->getDB()->$collection->aggregate($pipelines, array("cursor" => true));
 	}
 	
 	/**

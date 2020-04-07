@@ -1300,7 +1300,7 @@ class EMongoDocument extends EMongoModel
 	public function aggregate($pipeline)
 	{
 		$this->trace(__FUNCTION__);
-		return $this->getDbConnection()->aggregate($this->collectionName(), $pipeline);
+		return $this->getDbConnection()->aggregate($this->collectionName(), $pipeline, array("cursor" => true));
 	}
 
 	/**
